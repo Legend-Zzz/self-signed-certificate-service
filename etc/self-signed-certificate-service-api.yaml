@@ -1,0 +1,4 @@
+Name: self-signed-certificate-service-api
+Host: 0.0.0.0
+Port: 8000
+Timeout: 10000

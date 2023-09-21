@@ -1,0 +1,62 @@
+syntax = "v1"
+
+type FileReq {
+	Name   string `json:"name"`
+	Type   string `json:"type"`
+	Method string `json:"method"`
+}
+
+type FileResp {
+	Context string `json:"context"`
+	Message string `json:"message"`
+}
+
+type FileListReq {
+	Type string `json:"type"`
+}
+
+type FileListResp {
+	Name string `json:"name"`
+	Date string `json:"date"`
+}
+
+type CommandReq {
+	Selection            string `form:"selection"`
+	Domain               string `form:"domain,optional"`
+	IP                   string `form:"ip,optional"`
+	CASubject            string `form:"caSubject,optional"`
+	CAValidityDays       int    `form:"caValidityDays,optional"`
+	RootSubject          string `form:"rootSubject,optional"`
+	RootValidityDays     int    `form:"rootValidityDays,optional"`
+	SerialNumber         int    `form:"serialNumber,optional"`
+	RootOnlySubject      string `form:"rootOnlySubject,optional"`
+	RootOnlyValidityDays int    `form:"rootOnlyValidityDays,optional"`
+	RootOnlySerialNumber int    `form:"rootOnlySerialNumber,optional"`
+}
+
+type CommandResp {
+	Message string `json:"message"`
+}
+
+type LogResp {
+	Context string `json:"context"`
+}
+
+@server(
+	prefix: /api/v1
+)
+
+service self-signed-certificate-service-api {
+	@handler FileHandler
+	post /file (FileReq) returns (FileResp)
+
+	@handler FileListHandler
+	post /filelist (FileListReq) returns (FileListResp)
+
+	@handler CommandHandler
+	post /command (CommandReq) returns (CommandResp)
+
+	@handler LogHandler
+	get /log returns (LogResp)
+
+}
