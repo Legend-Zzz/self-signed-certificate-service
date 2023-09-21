@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: self-signed-certificate-service-srv
+spec:
+  selector:
+    app: self-signed-certificate-service
+  type: NodePort
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-signed-certificate-service-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: self-signed-certificate-service
+  template:
+    metadata:
+      labels:
+        app: self-signed-certificate-service
+    spec:
+      containers:
+        - name: self-signed-certificate-service-con
+          image: 172070761/self-signed-certificate-service:v1
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "800m"
+              memory: "1000Mi"
