@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: self-signed-certificate-service-con
-          image: 172070761/self-signed-certificate-service:v1
+          image: legendzzzaioi/self-signed-certificate-service:v1
           imagePullPolicy: Always
           ports:
             - name: http
